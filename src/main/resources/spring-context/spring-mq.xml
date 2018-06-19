@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:context="http://www.springframework.org/schema/context"
+xmlns:aop="http://www.springframework.org/schema/aop"
+xmlns:tx="http://www.springframework.org/schema/tx"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-4.0.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+	<bean id="atPushConsumer" class="com.pay.astrotrain.client.consumer.DefaultATPushConsumer">
+<!-- 	<property name="consumeThreadMin"><value>1</value></property>
+		<property name="consumeThreadMax"><value>1</value></property> -->
+		<property name="groupName"><value>${astrotrain.group.name}</value></property>
+		<property name="namesrvAddr"><value>${astrotrain.namesrv.address}</value></property>
+		<property name="instanceName"><value>${astrotrain.instance.name}</value></property>
+		<property name="consumeFromWhere"><value>${astrotrain.consumer.consumeFromWhere}</value></property>
+		<property name="consumeMessageBatchMaxSize"><value>32</value></property>
+		<property name="appId"><value>${astrotrain.appId}</value></property>
+	</bean>
+	<bean id="batchConsumer" class="com.pay.risk.mq.consumer.BatchConsumer" destroy-method="shutdown">
+		<property name="atPushConsumer" ref="atPushConsumer" />
+		<property name="messageListeners">
+			<list>
+				<ref bean="orderListener" />
+				<ref bean="posRequestListener" />
+			</list>
+		</property>
+	</bean>
+
+</beans>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pay.risk.dao.OlrModelDao">
+
+	<select id="getModelByCode" resultType="com.pay.risk.entity.OlrModel">
+		select om.id,om.code,om.name,om.obj_full,om.obj_short,om.version from olr_model om where om.code=#{code}
+	</select>
+
+</mapper>

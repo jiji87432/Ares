@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pay.risk.dao.OlPaymentDao">
+
+	<insert id="saveOlPayment" parameterType="java.util.HashMap">
+		insert into ol_payment(optimistic,order_id,payment_id,customer_no,amount,bus_type,user_pan,user_idno,user_name,user_phone,card_type,issuer,pay_type,trans_ip,
+		mac,pay_carrier,IMEI_NO,IMSI_NO,CPU_NO,rule_detail,rule_result,create_time,payment_createtime,cost)
+		values(0,#{queryParams.order_id},#{queryParams.payment_id},#{queryParams.customer_no},#{queryParams.amount},#{queryParams.bus_type},
+		#{queryParams.user_pan},#{queryParams.user_idno},#{queryParams.user_name},#{queryParams.user_phone},#{queryParams.card_type},#{queryParams.issuer},#{queryParams.pay_type},
+		#{queryParams.trans_ip},#{queryParams.mac},#{queryParams.pay_carrier},#{queryParams.IMEI_NO},#{queryParams.IMSI_NO},#{queryParams.CPU_NO},#{queryParams.rule_detail},#{queryParams.rule_result},now(),#{queryParams.payment_createTime},#{queryParams.cost})
+	</insert>
+	<insert id="saveOrderRuleDetail" parameterType="java.util.HashMap">
+		insert into ol_order_rule_detail(order_id,rule,type)
+		values(#{queryParams.payment_id },#{queryParams.rule },#{queryParams.type });
+	</insert>
+
+	<update id="updateStatusByOrderAndPaymentId" parameterType="java.util.HashMap">
+		update ol_payment set optimistic = optimistic +1,status = #{queryParams.result},complete_time = #{queryParams.complete_time} where  payment_id = #{queryParams.payment_id}
+	</update>
+
+</mapper>

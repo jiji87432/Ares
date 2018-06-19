@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://code.alibabatech.com/schema/dubbo
+		http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">
+
+
+	<dubbo:application name="ares" />
+
+	<dubbo:registry address="${dubbo.registry.address}" />
+	<dubbo:consumer connections="3"/>
+
+	<dubbo:reference id="antiMoneyCaseFacade" interface="com.pay.risk.remote.service.AntiMoneyCaseFacade" check="false" retries="0" timeout="30000"/>
+
+	<dubbo:reference id="secondCashServiceFacade" interface="com.pay.risk.remote.service.SecondCashServiceFacade" check="false" retries="0" timeout="30000"/>
+
+	<dubbo:reference id="merchantVerificationFacede" interface="com.pay.athena.remote.service.MerchantVerificationFacede" check="false" retries="0" timeout="2000"/>
+
+	<dubbo:reference id="smLimitFacade" interface="com.pay.risk.remote.service.SmLimitFacade" check="false" retries="0" timeout="2000"/>
+
+	<!-- 100 -->
+	<dubbo:reference id="riskRuleCaseAresFacade" interface="com.pay.risk.remote.service.RiskRuleCaseAresFacade" check="false" retries="0" timeout="100000"/>
+	<!-- 300 -->
+	<dubbo:reference id="customerAreaLimitAresFacade" interface="com.pay.risk.remote.service.CustomerAreaLimitAresFacade" check="false" retries="0" timeout="30000"/>
+	<!-- 30 -->
+	<dubbo:reference id="whiteListModleFacade" interface="com.pay.risk.remote.service.WhiteListModleFacade" check="false" retries="0" timeout="30000"/>
+	<!-- 50
+		<dubbo:reference id="posServiceDubboFacade" interface="com.pay.agent.remote.service.PosServiceDubboFacade" check="false" retries="0" timeout="50000"/>
+	-->
+	<!-- 50 -->
+	<dubbo:reference id="riskRuleHandleInitFacade" interface="com.pay.risk.remote.service.RiskRuleHandleInitFacade" check="false" retries="0" timeout="50000"/>
+	<!-- 150 -->
+	<dubbo:reference id="downgradeDealListFacade" interface="com.pay.risk.remote.service.DowngradeDealListFacade" check="false" retries="0" timeout="150000"/>
+
+	<dubbo:reference id="commissionDayCashFacade" interface="com.pay.athena.remote.service.CommissionDayCashFacade" check="false" retries="0" timeout="150000"/>
+
+	<!-- 跨省白名单 -->
+	<dubbo:reference id="transCoreDubboServiceFacade" interface="com.pay.pos.remote.service.TransCoreDubboServiceFacade"  check="false" retries="0" timeout="5000"/>
+	<!-- 分润日结接口 -->
+	<dubbo:reference id="commissionDayFacade" interface="com.pay.risk.remote.service.CommissionDayFacade" check="false" retries="0" timeout="150000"/>
+	<!-- 分润日结 调单退单接口 运营  -->
+	<dubbo:reference id="agentCommissionServiceFacade" interface="com.pay.hecate.dubbo.AgentCommissionServiceFacade" check="false" retries="0" timeout="150000"/>
+	<!-- 鉴权接口 -->
+	<dubbo:reference id="tradeAuthFacade" interface="com.pay.risk.poseidon.remote.service.TradeAuthFacade" check="false" retries="0" timeout="150000"/>
+	<!-- 鉴权服务商自定义模板 -->
+	<dubbo:reference id="agentAuthTemplateAcceptFacade" interface="com.pay.risk.poseidon.remote.service.AgentAuthTemplateAcceptFacade" check="false" retries="0" timeout="150000"/>
+
+	<!-- settle接口 -->
+	<dubbo:reference id="settleQueryInterface" interface="com.pay.settle.api.interfaces.SettleQueryInterface" check="false" retries="0" timeout="30000"/>
+
+	<!-- <dubbo:reference id="posServiceDubboFacade" interface="com.pay.terminal.srv.core.api.service.PosServiceDubboFacade" check="false" retries="0" timeout="50000"/>
+	-->
+
+</beans>

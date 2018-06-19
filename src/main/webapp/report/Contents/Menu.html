@@ -1,0 +1,83 @@
+<html>
+
+<head>
+	<title>FusionCharts v3 Documentation</title>
+	<link rel="StyleSheet" href="dtree.css" type="text/css" />
+	<script type="text/javascript" src="JS/dtree.js"></script>
+</head>
+
+<body leftMargin='20'>
+
+<div class="dtree">
+	<script type="text/javascript">
+		<!--
+
+		//id, pid, name, url, title, target, icon, iconOPne, open,
+
+		d = new dTree('d');
+		d.config.target="right";		
+		d.config.folderLinks = false;
+		
+// ----------------- INTRODUCTION ------------------//
+		d.add(0,-1,'<B>FusionCharts v3</B>','','FusionCharts v3 Documentation');
+// --------------- SAMPLE CHARTS -------------------- //
+		d.add(6,0,'Sample Charts','');
+		d.add(250,6,'Single Series Charts','');
+		d.add(251,250,'Column 2D Chart','../Gallery/Column2D.html');		
+		d.add(252,250,'Column 3D Chart','../Gallery/Column3D.html');		
+		d.add(253,250,'Pie 3D Chart','../Gallery/Pie3D.html');				
+		d.add(254,250,'Pie 2D Chart','../Gallery/Pie2D.html');		
+		d.add(255,250,'Line 2D Chart','../Gallery/Line2D.html');			
+		d.add(256,250,'Bar 2D Chart','../Gallery/Bar2D.html');		
+		d.add(257,250,'Area 2D Chart','../Gallery/Area2D.html');		
+		d.add(258,250,'Doughnut 2D Chart','../Gallery/Doughnut2D.html');		
+		d.add(259,250,'Doughnut 3D Chart','../Gallery/Doughnut3D.html');		
+				
+		d.add(269,6,'Multi-Series Charts','');
+		d.add(270,269,'Multi-series Column 2D Chart','../Gallery/MSColumn2D.html');		
+		d.add(271,269,'Multi-series Column 3D Chart','../Gallery/MSColumn3D.html');		
+		d.add(272,269,'Multi-series Line 2D Chart','../Gallery/MSLine.html');				
+		d.add(273,269,'Multi-series Area 2D Chart','../Gallery/MSArea2D.html');		
+		d.add(274,269,'Multi-series Bar 2D Chart','../Gallery/MSBar2D.html');		
+		d.add(275,269,'Multi-series Bar 3D Chart','../Gallery/MSBar3D.html');		
+		
+		d.add(290,6,'Stacked Charts','');
+		d.add(291,290,'Stacked Column 2D Chart','../Gallery/StCol2D.html');		
+		d.add(292,290,'Stacked Column 3D Chart','../Gallery/StCol3D.html');						
+		d.add(293,290,'Stacked Area 2D Chart','../Gallery/StArea2D.html');		
+		d.add(294,290,'Stacked Bar 2D Chart','../Gallery/StBar2D.html');
+		d.add(295,290,'Stacked Bar 3D Chart','../Gallery/StBar3D.html');		
+		d.add(296,290,'Multi-series Stacked Column 2D Chart','../Gallery/StMSCol2D.html');		
+
+		d.add(300,6,'Combination Charts','');
+		d.add(306,300,'2D Single Y Combination','../Gallery/Combi2D.html');		
+		d.add(307,300,'3D Single Y Combination','../Gallery/Combi3D.html');		
+		d.add(301,300,'Column 3D + Line Single Y','../Gallery/Col3DLine.html');		
+		d.add(302,300,'2D Dual Y Combination','../Gallery/Combi2DDY.html');				
+		d.add(303,300,'Column 3D + Line Dual Y','../Gallery/Col3DLineDY.html');		
+		d.add(304,300,'Stacked Column 3D + Line Dual Y','../Gallery/StCol3DLineDY.html');		
+		d.add(305,300,'Multi-series Stacked Column 2D + Line Dual Y','../Gallery/StMSCol2DLineDY.html');		
+
+		d.add(309,6,'XY Plot Charts','');
+		d.add(310,309,'Scatter (XY Plot) Chart','../Gallery/Scatter.html');		
+		d.add(311,309,'Bubble Chart','../Gallery/Bubble.html');		
+		
+		d.add(810,6,'Scroll Charts','');
+		d.add(811,810,'Scroll Column 2D Chart','../Gallery/ScrollColumn2D.html');		
+		d.add(812,810,'Scroll Line 2D Chart','../Gallery/ScrollLine2D.html');		
+		d.add(813,810,'Scroll Area 2D Chart','../Gallery/ScrolArea2D.html');
+		d.add(814,810,'Scroll Stacked Column 2D Chart','../Gallery/ScrollStackedCol2D.html');		
+		d.add(815,810,'Scroll Combination 2D Chart','../Gallery/ScrollCombi2D.html');		
+		d.add(816,810,'Scroll Combination (Dual Y) 2D Chart','../Gallery/ScrollCombiDY2D.html');		
+
+
+		
+		document.write(d);
+
+		//-->
+	</script>
+	<p><a href="javascript: d.openAll();">Expand all</a> | <a href="javascript: d.closeAll();">Collapse all</a></p>
+</div>
+</body>
+
+</html>

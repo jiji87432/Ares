@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"
+	default-autowire="byName">
+	<!-- 数据同步一 -->
+	<bean id="dataJobOneJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="dataJobOne"/>
+		<property name="targetMethod" value="execute"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="dataJobOneTask" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="dataJobOneJob"/>
+		<property name="cronExpression" value="0/2 * * * * ? *"/>
+	</bean>
+
+	<!-- 数据同步二 -->
+	<bean id="dataJobTwoJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="dataJobTwo"/>
+		<property name="targetMethod" value="execute"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="dataJobTwoTask" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="dataJobTwoJob"/>
+		<property name="cronExpression" value="0/2 * * * * ? *"/>
+	</bean>
+
+	<!-- 数据同步三 -->
+	<bean id="dataJobThreeJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="dataJobThree"/>
+		<property name="targetMethod" value="execute"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	<bean id="dataJobThreeTask" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="dataJobThreeJob"/>
+		<property name="cronExpression" value="0/2 * * * * ? *"/>
+	</bean>
+
+	<!-- 总控制器 -->
+	<bean id="apolloQuertz" lazy-init="false" autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+<!--				<ref bean="dataJobOneTask" />-->
+<!--				<ref bean="dataJobTwoTask" />-->
+<!--				<ref bean="dataJobThreeTask" />-->
+			</list>
+		</property>
+	</bean>
+
+	<!-- 数据同步一 -->
+	<bean id="dataJobOnePlan" class="com.pay.risk.task.DataJobOne">
+		<property name="cronExpress"><value>* * * * * *</value></property>
+		<property name="jobKey"><value>com.pay.risk.task.DataJobOne</value></property>
+	</bean>
+
+	<!-- 数据同步二 -->
+	<bean id="dataJobTwoPlan" class="com.pay.risk.task.DataJobTwo">
+		<property name="cronExpress"><value>* * * * * *</value></property>
+		<property name="jobKey"><value>com.pay.risk.task.DataJobTwo</value></property>
+	</bean>
+
+	<!-- 数据同步三 -->
+	<bean id="dataJobThreePlan" class="com.pay.risk.task.DataJobThree">
+		<property name="cronExpress"><value>* * * * * *</value></property>
+		<property name="jobKey"><value>com.pay.risk.task.DataJobThree</value></property>
+	</bean>
+
+
+	<!-- 数据汇总 -->
+	<bean id="hisDataHandleTigger" class="com.pay.risk.task.HisDataHandleTask">
+		<property name="cronExpress"><value>* * * * * *</value></property>
+		<property name="jobKey"><value>com.pay.risk.task.HisDataHandleTask</value></property>
+	</bean>
+
+
+	<!-- 数据汇总校验-->
+	<bean id="hisDataHandleConfimTigger" class="com.pay.risk.task.HisDataHandleConfimTask">
+		<property name="cronExpress"><value>* * * * * *</value></property>
+		<property name="jobKey"><value>com.pay.risk.task.HisDataHandleConfimTask</value></property>
+	</bean>
+	<!-- 删除redis中的部分数据 order -->
+	<bean id="orderDelTaskTigger" class="com.pay.risk.task.OrderDelTask">
+		<property name="cronExpress"><value>* * * * * *</value></property>
+		<property name="jobKey"><value>com.pay.risk.task.OrderDelTask</value></property>
+	</bean>
+
+	<!-- 删除redis中的部分数据 payment -->
+	<bean id="paymentlTaskTigger" class="com.pay.risk.task.PaymentDelTask">
+		<property name="cronExpress"><value>* * * * * *</value></property>
+		<property name="jobKey"><value>com.pay.risk.task.PaymentDelTask</value></property>
+	</bean>
+
+	<!-- MQ删除昨天沉淀的数据 -->
+	<bean id="delRedisInfoTaskTigger" class="com.pay.risk.task.DelRedisInfoTask">
+		<property name="cronExpress"><value>* * * * * *</value></property>
+		<property name="jobKey"><value>com.pay.risk.task.DelRedisInfoTask</value></property>
+	</bean>
+
+	<!-- 删除redis中的过期数据 -->
+	<bean id="delRedisDateTaskTigger" class="com.pay.risk.task.DelRedisDateTask">
+		<property name="cronExpress"><value>0 0 3 * * *</value></property>
+		<property name="jobKey"><value>com.pay.risk.task.DelRedisDateTask</value></property>
+	</bean>
+
+	<bean class="com.pay.orderliness.proxy.core.ProxyClient" init-method="start" destroy-method="shutdown">
+			<property name="jobs">
+			<list>
+				<ref bean="hisDataHandleTigger"/>
+				<ref bean="hisDataHandleConfimTigger"/>
+				<ref bean="orderDelTaskTigger"/>
+				<ref bean="paymentlTaskTigger"/>
+				<ref bean="delRedisInfoTaskTigger"/>
+				<ref bean="delRedisDateTaskTigger"/>
+
+			</list>
+		</property>
+	</bean>
+
+
+</beans>

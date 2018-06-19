@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pay.risk.dao.OlrDealFlowDao">
+<resultMap id="OlrDealFlow" type="com.pay.risk.entity.OlrDealFlow">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="optimistic" property="optimistic" jdbcType="INTEGER" />
+		<result column="order_id" property="orderId" jdbcType="VARCHAR" />
+		<result column="payment_id" property="paymentId" jdbcType="VARCHAR" />
+		<result column="customer_no" property="customerNo" jdbcType="VARCHAR" />
+		<result column="amount" property="amount" jdbcType="DOUBLE" />
+		<result column="bus_type" property="busType" jdbcType="VARCHAR" />
+		<result column="user_idno" property="userIdno" jdbcType="VARCHAR" />
+		<result column="user_pan" property="userPan" jdbcType="VARCHAR" />
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+		<result column="user_phone" property="userPhone" jdbcType="VARCHAR" />
+		<result column="card_type" property="cardType" jdbcType="VARCHAR" />
+		<result column="issuer" property="issuer" jdbcType="VARCHAR" />
+		<result column="pay_type" property="payType" jdbcType="VARCHAR" />
+		<result column="trans_ip" property="transIp" jdbcType="VARCHAR" />
+		<result column="mac" property="mac" jdbcType="VARCHAR" />
+		<result column="pay_carrier" property="payCarrier" jdbcType="VARCHAR" />
+		<result column="IMEI_NO" property="IMEINO" jdbcType="VARCHAR" />
+		<result column="IMSI_NO" property="IMSINO" jdbcType="VARCHAR" />
+		<result column="CPU_NO" property="CPUNO" jdbcType="VARCHAR" />
+		<result column="rule_result" property="ruleResult" jdbcType="VARCHAR" />
+		<result column="finalResult" property="finalResult" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="getOlrDealFlowById" resultMap="OlrDealFlow" parameterType="java.lang.Long" >
+		select	id,order_id,payment_id,customer_no,amount,bus_type,user_idno,user_pan,user_name,user_phone,card_type,
+				issuer,pay_type,trans_ip,mac,pay_carrier,IMEI_NO,IMSI_NO,CPU_NO,rule_result,final_result
+				from olr_deal_flow mf where mf.id = #{id}
+	</select>
+	<insert id="saveOlrDealFlow" parameterType="com.pay.risk.entity.OlrDealFlow">
+		insert into olr_deal_flow (optimistic,order_id,payment_id,customer_no,amount,bus_type,user_idno,user_pan,user_name,user_phone,card_type,
+				issuer,pay_type,trans_ip,mac,pay_carrier,IMEI_NO,IMSI_NO,CPU_NO,rule_result,final_result)
+			values
+			(0,#{ordeeId,jdbcType=VARCHAR},#{paymentId,jdbcType=VARCHAR},#{customerNo,jdbcType=VARCHAR}
+				,#{amount,jdbcType=DOUBLE}
+				,#{busType,jdbcType=VARCHAR}
+				,#{userIdno,jdbcType=VARCHAR}
+				,#{userPan,jdbcType=VARCHAR}
+				,#{userName,jdbcType=VARCHAR}
+				,#{userPhone,jdbcType=VARCHAR}
+				,#{cardType,jdbcType=VARCHAR}
+				,#{issuer,jdbcType=VARCHAR}
+				,#{payType,jdbcType=VARCHAR}
+				,#{transIp,jdbcType=VARCHAR}
+				,#{mac,jdbcType=VARCHAR}
+				,#{payCarrier,jdbcType=VARCHAR}
+				,#{IMEINO,jdbcType=VARCHAR}
+				,#{IMSINO,jdbcType=VARCHAR}
+				,#{CPUNO,jdbcType=VARCHAR}
+				,#{ruleResult,jdbcType=VARCHAR}
+				,#{finalResult,jdbcType=VARCHAR}
+				)
+	</insert>
+	<update id="updateOlrDealFlow" parameterType="com.pay.risk.entity.OlrDealFlow">
+		update  olr_order_flow
+				set
+				optimistic = optimistic + 1,
+				amount=#{amount,jdbcType=DOUBLE},
+				bus_type=#{busType,jdbcType=VARCHAR},
+				user_idno = #{userIdno,jdbcType=VARCHAR},
+				user_pan = #{userPan,jdbcType=VARCHAR},
+				user_name = #{userName,jdbcType=VARCHAR},
+				user_phone = #{userPhone,jdbcType=VARCHAR},
+				card_type = #{cardType,jdbcType=VARCHAR},
+				issuer = #{issuer,jdbcType=VARCHAR},
+				pay_type = #{payType,jdbcType=VARCHAR},
+				trans_ip = #{transIp,jdbcType=VARCHAR},
+				mac = #{mac,jdbcType=VARCHAR},
+				pay_carrier = #{payCarrier,jdbcType=VARCHAR},
+				IMEI_NO = #{IMEINO,jdbcType=VARCHAR},
+				IMSI_NO = #{IMSINO,jdbcType=VARCHAR},
+				CPU_NO = #{CPUNO,jdbcType=VARCHAR},
+				rule_result = #{ruleResult,jdbcType=VARCHAR},
+				final_result = #{finalResult,jdbcType=VARCHAR}
+			where id=#{id}
+	</update>
+	<delete id="deleteOlrDealFlow" parameterType="java.lang.Long">
+		delete from olr_deal_flow where id = #{id}
+
+	</delete>
+</mapper>

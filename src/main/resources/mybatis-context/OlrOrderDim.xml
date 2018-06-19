@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pay.risk.dao.OlrOrderDimDao">
+<resultMap id="OlrOrderDim" type="com.pay.risk.entity.OlrOrderDim">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="optimistic" property="optimistic" jdbcType="INTEGER" />
+		<result column="customer_no" property="customerNo" jdbcType="VARCHAR" />
+		<result column="order_id" property="orderId" jdbcType="VARCHAR" />
+		<result column="amount" property="amount" jdbcType="DOUBLE" />
+		<result column="bus_type" property="busType" jdbcType="VARCHAR" />
+		<result column="result" property="result" jdbcType="VARCHAR" />
+		<result column="response_code" property="responseCode" jdbcType="VARCHAR" />
+	<!--	<result column="create_time" property="create_time" jdbcType="DATE" />-->
+		<result column="complete_time" property="completeTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<select id="getOlrOrderDimById" parameterType="java.lang.Long" resultMap="OlrOrderDim">
+				select id,optimistic,customer_no,order_id,amount,bus_type,result,response_code
+			from olr_order_dim
+			where id=#{id}
+
+	</select>
+	<insert id="saveOlrOrderDim" parameterType="com.pay.risk.entity.OlrOrderDim">
+		insert into olr_order_dim (optimistic,customer_no,order_id,amount,bus_type,result,response_code,create_time,complete_time)
+		values (
+			0,
+			#{customerNo},
+			#{orderId},
+			#{amount},
+			#{busType},
+			#{result},
+			#{responseCode},
+			now(),
+			null
+		)
+	</insert>
+
+	<update id="updateOlrOrderDim" parameterType="com.pay.risk.entity.OlrOrderDim">
+		update olr_order_dim set
+									optimistic = optimistic + 1,
+									amount = #{amount,jdbcType=DOUBLE},
+									bus_type=#{busType,jdbcType=VARCHER},
+									result=#{result,jdbcType=VARCHER},
+									response_code=#{responseCode,jdbcType=VARCHER},
+									complete_time = #{completeTime,jdbcType=TIMESTAMP}
+							where id = #{id}
+	</update>
+	<delete id="deleteOlrOrderDim" parameterType="java.lang.Long">
+			delete from olr_order_dim where id =#{id}
+
+	</delete>
+
+</mapper>

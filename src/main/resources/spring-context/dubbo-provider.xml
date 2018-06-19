@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://code.alibabatech.com/schema/dubbo
+	http://code.alibabatech.com/schema/dubbo/dubbo.xsd" default-autowire="byName">
+
+	<!-- 扫描注解包路径，多个包用逗号分隔，不填pacakge表示扫描当前ApplicationContext中所有的类 -->
+
+	<dubbo:annotation package="com.pay.risk" />
+
+	<dubbo:registry address="${dubbo.registry.address}" />
+
+	<dubbo:protocol name="dubbo" port="28999" />
+
+	<dubbo:service interface="com.pay.ares.remote.service.ONLineRiskServiceFacade" ref="oNLineRiskServiceFacade" connections="2" />
+	<bean id="oNLineRiskServiceFacade" class="com.pay.risk.dubbo.ONLineRiskServiceFacadeImpl"></bean>
+
+	<dubbo:service interface="com.pay.ares.remote.service.CommonRiskServiceFacade" ref="commonRiskServiceFacade" connections="2" />
+	<bean id="commonRiskServiceFacade" class="com.pay.risk.dubbo.CommonRiskServiceFacadeImpl"></bean>
+
+	<dubbo:service interface="com.pay.ares.remote.service.CommonResultServiceFacade" ref="commonResultServiceFacade" connections="2" />
+	<bean id="commonResultServiceFacade" class="com.pay.risk.dubbo.CommonSaveResultServiceFacadeImpl"></bean>
+
+	<dubbo:service interface="com.pay.ares.remote.service.PaiDataServiceFacade" ref="paiDataServiceFacade" connections="2" />
+	<bean id="paiDataServiceFacade" class="com.pay.risk.dubbo.PaiDataServiceFacadeImpl"></bean>
+
+	<dubbo:service interface="com.pay.ares.remote.service.HighAvailabilityServiceFacade" ref="highAvailabilityServiceFacade" connections="2" />
+	<bean id="highAvailabilityServiceFacade" class="com.pay.risk.dubbo.HighAvailabilityServiceFacadeImpl"></bean>
+
+</beans>
